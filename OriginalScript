@@ -1,0 +1,29 @@
+#!/bin/sh
+
+##
+##     All this does is grab a random value from /dev/urandom, removes everything except 10 characters,
+##     encrypts it with Base64, and lastly, removes everything except 10 characters from the Base64.
+##
+##     Not really something that needs obfuscating, but this is just an example.
+##     Also keep in mind that if you want to encrypt a file that has multiple lines and does a lot of stuff,
+##     you'd need to change this:
+##
+##          randomVariable="I'm a random variable! :D"
+##          doStuff() {
+##            if [ "$randomVariable" != "potato" ]
+##              then
+##                echo "Oh no! No potato! D:"
+##              else
+##                echo "I'm doing stuff! :D"
+##            fi
+##          }
+##          trap doStuff EXIT
+##
+##     into this:
+##
+##          randomVariable="I'm a random variable! :D";doStuff() { if [ "$randomVariable" != "potato" ];then echo "Oh no! No potato! D:";else echo "I'm doing stuff! :D";fi };trap doStuff EXIT
+##
+
+printf "\n"
+printf "$(cat /dev/urandom | head -c 10 | base64 | head -c 10)"
+printf "\n\n"
